@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Concept B, "Panel": a fixed rail of readouts on the left, the apps in a grid on the right.
+     Nothing here takes Android focus: HomeActivity moves one outline by hand. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ground"
+    android:clipChildren="false"
+    android:descendantFocusability="blocksDescendants">
+
+    <ImageView
+        android:id="@+id/wallpaper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:visibility="gone" />
+
+    <!-- The rail: time on top, readouts at the bottom, a hairline on its right edge. -->
+    <LinearLayout
+        android:id="@+id/rail"
+        android:layout_width="@dimen/rail_width"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/safe_x"
+        android:layout_marginTop="@dimen/safe_y"
+        android:layout_marginBottom="@dimen/safe_y"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/rail_column"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingEnd="@dimen/rail_padding">
+
+            <TextView
+                android:id="@+id/clock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/doto_bold"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.02"
+                android:lineHeight="@dimen/clock_line"
+                android:textColor="@color/text"
+                android:textSize="@dimen/text_clock" />
+
+            <TextView
+                android:id="@+id/date_day"
+                style="@style/Label"
+                android:layout_marginTop="-6dp" />
+
+            <TextView
+                android:id="@+id/date"
+                style="@style/Label"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/text_3" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <!-- Readouts. Each is a label over a value; the focused one inverts. -->
+            <LinearLayout
+                android:id="@+id/readouts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View style="@style/RailRule" />
+
+                <LinearLayout
+                    android:id="@+id/readout_inputs"
+                    style="@style/RailItem">
+
+                    <TextView
+                        android:id="@+id/readout_inputs_label"
+                        style="@style/RailKey"
+                        android:text="@string/input" />
+
+                    <LinearLayout
+                        android:id="@+id/readout_inputs_value_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/readout_inputs_value"
+                            style="@style/RailValue"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:text="@string/inputs" />
+
+                        <View
+                            android:id="@+id/inputs_dot"
+                            android:layout_width="@dimen/dot"
+                            android:layout_height="@dimen/dot"
+                            android:layout_marginStart="9dp"
+                            android:background="@drawable/dot"
+                            android:visibility="invisible" />
+                    </LinearLayout>
+
+                    <!-- The input list, expanded in place; rows added in code. -->
+                    <LinearLayout
+                        android:id="@+id/inputs_menu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:orientation="vertical"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/rule_network"
+                    style="@style/RailRule" />
+
+                <LinearLayout
+                    android:id="@+id/readout_wifi"
+                    style="@style/RailItem">
+
+                    <TextView
+                        android:id="@+id/readout_wifi_label"
+                        style="@style/RailKey"
+                        android:text="@string/network" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/readout_wifi_value"
+                            style="@style/RailValue"
+                            android:layout_width="0dp"
+                            android:layout_weight="1" />
+
+                        <View
+                            android:id="@+id/wifi_dot"
+                            android:layout_width="@dimen/dot"
+                            android:layout_height="@dimen/dot"
+                            android:layout_marginStart="9dp"
+                            android:background="@drawable/dot"
+                            android:visibility="invisible" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/rule_settings"
+                    style="@style/RailRule" />
+
+                <LinearLayout
+                    android:id="@+id/readout_settings"
+                    style="@style/RailItem">
+
+                    <TextView
+                        android:id="@+id/readout_settings_label"
+                        style="@style/RailKey"
+                        android:text="@string/system" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/readout_settings_value"
+                            style="@style/RailValue"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:text="@string/settings" />
+
+                        <View
+                            android:id="@+id/settings_dot"
+                            android:layout_width="@dimen/dot"
+                            android:layout_height="@dimen/dot"
+                            android:layout_marginStart="9dp"
+                            android:background="@drawable/dot"
+                            android:visibility="invisible" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View style="@style/RailRule" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/hairline"
+            android:layout_height="match_parent"
+            android:background="@color/hairline" />
+    </LinearLayout>
+
+    <!-- The apps: one grid, pinned apps first, scrolling on its own. -->
+    <ScrollView
+        android:id="@+id/scroller"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/apps_left"
+        android:layout_marginEnd="@dimen/safe_x"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:focusable="false"
+        android:overScrollMode="never"
+        android:paddingTop="@dimen/safe_y"
+        android:paddingBottom="@dimen/safe_y"
+        android:scrollbars="none">
+
+        <FrameLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never" />
+
+            <com.clean.tvhome.FocusOutline
+                android:id="@+id/highlight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
+    </ScrollView>
+</FrameLayout>

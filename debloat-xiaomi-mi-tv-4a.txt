@@ -1,0 +1,27 @@
+# Xiaomi Mi TV 4A (MiTV4I, Android TV 9). Every line was disabled with: pm disable-user --user 0 <package>
+# restore.sh re-enables them. Nothing is uninstalled. Checked after a reboot: the firmware re-enabled none.
+# Already disabled on this set before the project started, so not listed: co.sensara.tv.mitv, com.mitv.tvhome.atv (PatchWall).
+com.miui.tv.analytics
+com.xiaomi.statistic
+com.google.android.feedback
+com.google.android.tv.bugreportsender
+co.sensara.tv.mitv.res
+com.mitv.tvhome.oemtab
+com.xm.webcontent
+android.autoinstalls.config.xiaomi.amelie
+android.autoinstalls.config.xioami.dangal
+com.google.android.leanbacklauncher.recommendations
+com.xiaomi.mitv.tvmanager
+com.mitv.milinkservice
+com.android.printspooler
+com.xiaomi.mimusic2
+com.google.android.videos
+com.google.android.youtube.tvmusic
+com.google.android.play.games
+com.android.camera2
+com.google.android.katniss
+com.google.android.speech.pumpkin
+com.xiaomi.mitv.updateservice
+com.google.android.tvlauncher
+com.google.android.tvrecommendations
+com.google.android.leanbacklauncher

@@ -1,0 +1,33 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Concept A — Index — Browsing all apps (12 installed, scrolled one row)</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  /* With more than 8 apps the page scrolls one row per Down press; the top band and the
+     pinned row leave the screen, and a 2-line status strip stays pinned at the top edge. */
+  .strip { position: absolute; left: var(--safe-x); right: var(--safe-x); top: 0; height: 40px; display: flex; align-items: center; justify-content: space-between; }
+  .section { position: absolute; left: var(--safe-x); right: var(--safe-x); }
+  .row { display: flex; gap: var(--gutter); margin-top: 26px; }
+  .row + .row { margin-top: 36px; }
+</style></head>
+<body>
+  <div class="strip">
+    <span class="label dim">▲ Pinned</span>
+    <span class="label"><span class="dim">20:41</span></span>
+  </div>
+
+  <div class="section" style="top: 56px">
+    <div class="rule"><span class="tag label">All apps <span class="dim">( 8 )</span></span></div>
+    <div class="row">
+      <div class="tile"><div class="art"><img src="banners/gallery.png"></div><div class="caption"><span class="idx">05</span><span class="name">Gallery</span></div></div>
+      <div class="tile"><div class="art"><img src="banners/livetv.png"></div><div class="caption"><span class="idx">06</span><span class="name">Live TV</span></div></div>
+      <div class="tile"><div class="art"><img src="banners/media.png"></div><div class="caption"><span class="idx">07</span><span class="name">Media Player</span></div></div>
+      <div class="tile"><div class="art"><img src="banners/play.png"></div><div class="caption"><span class="idx">08</span><span class="name">Play Store</span></div></div>
+    </div>
+    <div class="row">
+      <div class="tile"><div class="art noart"><span>Jellyfin</span></div><div class="caption"><span class="idx">09</span><span class="name">Jellyfin</span></div></div>
+      <div class="tile focused"><div class="art noart"><span>SmartTube</span></div><div class="caption"><span class="idx">10</span><span class="name">SmartTube</span></div></div>
+      <div class="tile"><div class="art noart"><span>Kodi</span></div><div class="caption"><span class="idx">11</span><span class="name">Kodi</span></div></div>
+      <div class="tile"><div class="art noart"><span>Spotify</span></div><div class="caption"><span class="idx">12</span><span class="name">Spotify</span></div></div>
+    </div>
+  </div>
+</body></html>

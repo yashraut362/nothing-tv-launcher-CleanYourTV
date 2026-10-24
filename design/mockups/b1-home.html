@@ -1,0 +1,49 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Concept B — Panel — Home</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  /* Hypothesis B: the launcher is an instrument panel. A left rail of readouts (time, input,
+     network, settings) is always visible and focusable; apps sit to the right in 3 columns. */
+  .rail { position: absolute; left: var(--safe-x); top: var(--safe-y); bottom: var(--safe-y); width: 300px; border-right: 1px solid var(--hairline); padding-right: 32px; display: flex; flex-direction: column; }
+  .rail .clock { font-size: 120px; line-height: 0.92; }
+  .rail .date { margin-top: 16px; }
+  .readlist { margin-top: auto; display: flex; flex-direction: column; }
+  .ritem { border-top: 1px solid var(--hairline); padding: 16px 0; display: flex; flex-direction: column; gap: 6px; }
+  .ritem:last-child { border-bottom: 1px solid var(--hairline); }
+  .ritem .k { font-family: var(--font-label); font-size: 19px; letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); }
+  .ritem .v { font-family: var(--font-text); font-weight: 500; font-size: 24px; color: var(--text); display: flex; align-items: center; gap: 12px; }
+  .ritem.focused { background: var(--text); margin: 0 -16px; padding: 16px; }
+  .ritem.focused .k, .ritem.focused .v { color: var(--ground); }
+
+  .apps { position: absolute; left: 428px; right: var(--safe-x); top: var(--safe-y); }
+  .grid { display: grid; grid-template-columns: repeat(3, 256px); column-gap: var(--gutter); row-gap: 34px; }
+  .tile { width: 256px; }
+  .tile .art { width: 256px; height: 144px; }
+  .tile .caption .idx { display: none; }
+  .tile .caption { height: 30px; margin-top: 12px; }
+  .tile.focused .art { transform: scale(1.08); }
+</style></head>
+<body>
+  <div class="rail">
+    <div class="clock">20<br>41</div>
+    <div class="label date">Saturday<br><span class="dim">24 October</span></div>
+    <div class="readlist">
+      <div class="ritem"><span class="k">Input</span><span class="v">HDMI 2 <span class="dot"></span></span></div>
+      <div class="ritem"><span class="k">Network</span><span class="v">Wi-Fi</span></div>
+      <div class="ritem"><span class="k">System</span><span class="v">Settings</span></div>
+    </div>
+  </div>
+
+  <div class="apps">
+    <div class="grid">
+      <div class="tile focused"><div class="art"><img src="banners/youtube.png"></div><div class="caption"><span class="name">YouTube</span></div></div>
+      <div class="tile"><div class="art"><img src="banners/prime.png"></div><div class="caption"><span class="name">Prime Video</span></div></div>
+      <div class="tile"><div class="art"><img src="banners/hotstar.png"></div><div class="caption"><span class="name">JioHotstar</span></div></div>
+      <div class="tile"><div class="art"><img src="banners/zee5.png"></div><div class="caption"><span class="name">ZEE5</span></div></div>
+      <div class="tile"><div class="art"><img src="banners/livetv.png"></div><div class="caption"><span class="name">Live TV</span></div></div>
+      <div class="tile"><div class="art"><img src="banners/play.png"></div><div class="caption"><span class="name">Play Store</span></div></div>
+      <div class="tile"><div class="art"><img src="banners/gallery.png"></div><div class="caption"><span class="name">Gallery</span></div></div>
+      <div class="tile"><div class="art"><img src="banners/media.png"></div><div class="caption"><span class="name">Media Player</span></div></div>
+    </div>
+  </div>
+</body></html>

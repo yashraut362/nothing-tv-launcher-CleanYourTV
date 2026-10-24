@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Design tokens. The TV is 1280x720 at 1 dp = 1.333 px; values are the mockup pixels / 1.333. -->
+<resources>
+    <dimen name="safe_x">48dp</dimen>            <!-- 64 px, the 5% safe margin -->
+    <dimen name="safe_y">30dp</dimen>            <!-- 40 px -->
+    <dimen name="gutter">18dp</dimen>            <!-- 24 px between tiles -->
+    <dimen name="gutter_dense">12dp</dimen>      <!-- 16 px at six or more columns -->
+    <dimen name="hairline">1dp</dimen>           <!-- 1.33 px: the thinnest line the panel keeps -->
+
+    <dimen name="tile_radius">4.5dp</dimen>      <!-- 6 px -->
+    <dimen name="panel_radius">6dp</dimen>       <!-- 8 px -->
+    <dimen name="focus_stroke">1.5dp</dimen>     <!-- 2 px -->
+    <dimen name="focus_offset">4.5dp</dimen>     <!-- 6 px outside the art -->
+    <dimen name="focus_radius">9dp</dimen>       <!-- 12 px -->
+
+    <dimen name="text_clock">90sp</dimen>        <!-- 120 px, Doto: dots of ~8 px -->
+    <dimen name="text_name">18sp</dimen>         <!-- 24 px, Geist Medium -->
+    <dimen name="text_label">15sp</dimen>        <!-- 20 px, Geist Mono: the floor for anything read -->
+
+    <dimen name="readout_height">33dp</dimen>    <!-- 44 px -->
+    <dimen name="readout_padding">18dp</dimen>   <!-- 24 px -->
+    <dimen name="section_gap">16dp</dimen>       <!-- 21 px, rule to tiles -->
+    <dimen name="caption_top">9dp</dimen>        <!-- 12 px -->
+    <dimen name="caption_height">22dp</dimen>    <!-- 30 px -->
+    <dimen name="row_gap">25dp</dimen>           <!-- 34 px, row to row -->
+    <dimen name="panel_width">225dp</dimen>      <!-- 300 px -->
+    <dimen name="panel_row">36dp</dimen>         <!-- 48 px -->
+    <dimen name="panel_padding">15dp</dimen>     <!-- 20 px -->
+    <dimen name="dot">7.5dp</dimen>              <!-- 10 px -->
+    <!-- Concept B rail -->
+    <dimen name="rail_width">210dp</dimen>       <!-- 280 px incl. its hairline -->
+    <dimen name="rail_padding">18dp</dimen>      <!-- 24 px between rail text and the hairline -->
+    <dimen name="rail_gap">36dp</dimen>          <!-- 48 px between the hairline and the first tile -->
+    <dimen name="apps_left">294dp</dimen>        <!-- safe_x + rail_width + rail_gap -->
+    <dimen name="rail_item_pad">12dp</dimen>     <!-- 16 px -->
+    <dimen name="text_key">14sp</dimen>          <!-- 19 px, the floor -->
+    <dimen name="clock_line">84dp</dimen>        <!-- 112 px per clock line -->
+    <dimen name="option_row">33dp</dimen>        <!-- 44 px -->
+</resources>

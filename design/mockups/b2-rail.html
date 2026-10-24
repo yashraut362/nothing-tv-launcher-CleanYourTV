@@ -1,0 +1,56 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Concept B — Panel — Rail focused, input list expanded</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  .rail { position: absolute; left: var(--safe-x); top: var(--safe-y); bottom: var(--safe-y); width: 300px; border-right: 1px solid var(--hairline); padding-right: 32px; display: flex; flex-direction: column; }
+  .rail .clock { font-size: 120px; line-height: 0.92; }
+  .rail .date { margin-top: 16px; }
+  .readlist { margin-top: auto; display: flex; flex-direction: column; }
+  .ritem { border-top: 1px solid var(--hairline); padding: 16px 0; display: flex; flex-direction: column; gap: 6px; }
+  .ritem:last-child { border-bottom: 1px solid var(--hairline); }
+  .ritem .k { font-family: var(--font-label); font-size: 19px; letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); }
+  .ritem .v { font-family: var(--font-text); font-weight: 500; font-size: 24px; color: var(--text); display: flex; align-items: center; gap: 12px; }
+  /* Expanded input item: its options list in place, one per row. */
+  .opts { display: flex; flex-direction: column; margin-top: 8px; }
+  .opt { font-family: var(--font-label); font-size: var(--size-label); letter-spacing: .08em; text-transform: uppercase; color: var(--text-2); padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; }
+  .opt.focused { background: var(--text); color: var(--ground); border-radius: 4px; }
+  .opt .dot { width: 8px; height: 8px; }
+
+  .apps { position: absolute; left: 428px; right: var(--safe-x); top: var(--safe-y); opacity: .35; }
+  .grid { display: grid; grid-template-columns: repeat(3, 256px); column-gap: var(--gutter); row-gap: 34px; }
+  .tile { width: 256px; }
+  .tile .art { width: 256px; height: 144px; }
+  .tile .caption { display: none; }
+</style></head>
+<body>
+  <div class="rail">
+    <div class="clock">20<br>41</div>
+    <div class="label date">Saturday<br><span class="dim">24 October</span></div>
+    <div class="readlist">
+      <div class="ritem"><span class="k">Input</span>
+        <div class="opts">
+          <div class="opt">HDMI 1</div>
+          <div class="opt focused">HDMI 2 <span class="dot"></span></div>
+          <div class="opt">HDMI 3</div>
+          <div class="opt">AV</div>
+          <div class="opt">Live TV</div>
+        </div>
+      </div>
+      <div class="ritem"><span class="k">Network</span><span class="v">Wi-Fi</span></div>
+      <div class="ritem"><span class="k">System</span><span class="v">Settings</span></div>
+    </div>
+  </div>
+
+  <div class="apps">
+    <div class="grid">
+      <div class="tile"><div class="art"><img src="banners/youtube.png"></div></div>
+      <div class="tile"><div class="art"><img src="banners/prime.png"></div></div>
+      <div class="tile"><div class="art"><img src="banners/hotstar.png"></div></div>
+      <div class="tile"><div class="art"><img src="banners/zee5.png"></div></div>
+      <div class="tile"><div class="art"><img src="banners/livetv.png"></div></div>
+      <div class="tile"><div class="art"><img src="banners/play.png"></div></div>
+      <div class="tile"><div class="art"><img src="banners/gallery.png"></div></div>
+      <div class="tile"><div class="art"><img src="banners/media.png"></div></div>
+    </div>
+  </div>
+</body></html>

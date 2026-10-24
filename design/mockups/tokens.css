@@ -1,0 +1,102 @@
+/* Nothing-derived TV launcher — proposed tokens (recommendations, not Nothing specs).
+   Canvas is the real panel: 1280x720 px. 1 dp on the TV = 1.333 px. */
+@import url('https://fonts.googleapis.com/css2?family=Doto:wght@400..900&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Colour: everything inside the TV-safe RGB 16-235 range. */
+  --ground: #101010;      /* RGB 16: video black, no bloom, no black crush      */
+  --surface: #1A1A1A;     /* banner-less tiles, panels                           */
+  --hairline: #333333;    /* 1 px rules and outlines                             */
+  --hairline-strong: #5A5A5A;
+  --text: #EBEBEB;        /* RGB 235: video white                                */
+  --text-2: #A3A3A3;      /* 7:1 on ground                                        */
+  --text-3: #6E6E6E;      /* index numbers, 3.5:1, never for words               */
+  --accent: #D71921;      /* one red point: a state, never a surface             */
+
+  /* Type */
+  --font-display: 'Doto', monospace;        /* stand-in for NDot (licensed to Nothing) */
+  --font-text: 'Geist', sans-serif;         /* Nothing OS 4.0+ system face, open licence */
+  --font-label: 'Geist Mono', monospace;    /* uppercase instrument labels               */
+
+  /* Scale at 720p (px) */
+  --size-clock: 112px;
+  --size-title: 28px;
+  --size-body: 22px;
+  --size-label: 20px;     /* floor for anything read: 19-20 px                   */
+
+  /* Geometry */
+  --safe-x: 64px;         /* 5% safe margin                                       */
+  --safe-y: 40px;
+  --gutter: 24px;
+  --radius-tile: 6px;
+  --radius-panel: 8px;
+  --stroke: 1px;
+  --focus-stroke: 2px;
+  --focus-offset: 6px;
+  --focus-scale: 1.05;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1280px; height: 720px; overflow: hidden; }
+body {
+  background: var(--ground);
+  color: var(--text);
+  font-family: var(--font-text);
+  font-size: var(--size-body);
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+}
+
+.label {
+  font-family: var(--font-label);
+  font-weight: 500;
+  font-size: var(--size-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+.label .dim { color: var(--text-3); }
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); vertical-align: middle; }
+
+/* Readout buttons: no pill, no fill. Focus inverts. */
+.readouts { display: flex; align-items: stretch; }
+.readout {
+  font-family: var(--font-label); font-weight: 500; font-size: var(--size-label);
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--text);
+  padding: 0 24px; height: 44px; display: flex; align-items: center; gap: 12px; white-space: nowrap;
+  border-left: var(--stroke) solid var(--hairline);
+}
+.readout:first-child { border-left: 0; }
+.readout.focused { background: var(--text); color: var(--ground); }
+.readout.focused .dot { background: var(--accent); }
+
+/* Tiles: 16:9 banners. */
+.tile { position: relative; width: 270px; }
+.tile .art {
+  width: 270px; height: 152px; border-radius: var(--radius-tile); overflow: hidden;
+  background: var(--surface); border: var(--stroke) solid transparent;
+  transition: transform 150ms cubic-bezier(.2,0,0,1);
+}
+.tile .art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tile .art.noart { border-color: var(--hairline); display: flex; align-items: center; justify-content: center; }
+.tile .art.noart span { font-family: var(--font-label); font-size: var(--size-label); letter-spacing: .08em; text-transform: uppercase; color: var(--text-2); }
+.tile .caption { display: flex; gap: 16px; align-items: baseline; margin-top: 14px; height: 30px; }
+.tile .caption .idx { font-family: var(--font-label); font-size: var(--size-label); color: var(--text-3); letter-spacing: .08em; }
+.tile .caption .name { font-family: var(--font-text); font-weight: 500; font-size: 24px; color: var(--text); opacity: 0; }
+.tile.focused .art { transform: scale(var(--focus-scale)); }
+.tile.focused .art::after {
+  content: ''; position: absolute; inset: calc(-1 * var(--focus-offset));
+  border: var(--focus-stroke) solid var(--text); border-radius: calc(var(--radius-tile) + var(--focus-offset));
+}
+.tile.focused .art { position: relative; overflow: visible; }
+.tile.focused .art img { border-radius: var(--radius-tile); }
+.tile.focused .caption .name { opacity: 1; }
+.tile.focused .caption .idx { color: var(--text-2); }
+.tile.pressed .art { transform: scale(0.98); }
+.tile.pressed .art::after { border-color: var(--text-2); }
+
+/* Section rule with a callout label sitting on the line. */
+.rule { position: relative; height: 1px; background: var(--hairline); }
+.rule .tag { position: absolute; left: 0; top: -12px; background: var(--ground); padding-right: 16px; }
+
+.clock { font-family: var(--font-display); font-weight: 700; font-size: var(--size-clock); line-height: 1; color: var(--text); letter-spacing: 0.02em; }

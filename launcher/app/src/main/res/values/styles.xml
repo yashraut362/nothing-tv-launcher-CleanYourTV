@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Explicitly opaque: on some firmware DeviceDefault comes out translucent and
+         the TV app keeps drawing underneath Home. -->
+    <style name="Home" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/ground</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSwipeToDismiss">false</item>
+        <item name="android:windowShowWallpaper">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:colorBackground">@color/ground</item>
+        <item name="android:statusBarColor">@color/ground</item>
+        <item name="android:navigationBarColor">@color/ground</item>
+    </style>
+
+    <!-- Uppercase mono instrument label: readouts, section labels, panel rows, date, index. -->
+    <style name="Label">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/geistmono_medium</item>
+        <item name="android:textSize">@dimen/text_label</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/text_2</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <!-- A rail readout: a small key over a value. Focus inverts the whole item. -->
+    <style name="RailItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingTop">@dimen/rail_item_pad</item>
+        <item name="android:paddingBottom">@dimen/rail_item_pad</item>
+        <item name="android:paddingStart">@dimen/rail_item_pad</item>
+        <item name="android:paddingEnd">@dimen/rail_item_pad</item>
+        <item name="android:layout_marginStart">-12dp</item>
+    </style>
+
+    <style name="RailKey" parent="Label">
+        <item name="android:textSize">@dimen/text_key</item>
+        <item name="android:textColor">@color/text_3</item>
+    </style>
+
+    <style name="RailValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:fontFamily">@font/geist_medium</item>
+        <item name="android:textSize">@dimen/text_name</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="RailRule">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/hairline</item>
+        <item name="android:background">@color/hairline</item>
+    </style>
+</resources>

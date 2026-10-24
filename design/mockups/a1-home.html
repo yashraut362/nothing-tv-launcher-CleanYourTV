@@ -1,0 +1,44 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Concept A — Index — Home</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  .top { position: absolute; left: var(--safe-x); right: var(--safe-x); top: var(--safe-y); height: 150px; }
+  .time { position: absolute; left: 0; top: 0; }
+  .time .date { margin-top: 10px; }
+  .readouts { position: absolute; right: 0; top: 4px; }
+  .section { position: absolute; left: var(--safe-x); right: var(--safe-x); }
+  .row { display: flex; gap: var(--gutter); margin-top: 26px; }
+</style></head>
+<body>
+  <div class="top">
+    <div class="time">
+      <div class="clock">20:41</div>
+      <div class="label date">SAT <span class="dim">(</span> 24 OCT <span class="dim">)</span></div>
+    </div>
+    <div class="readouts">
+      <div class="readout">Inputs <span class="dot"></span></div>
+      <div class="readout">Wi-Fi</div>
+      <div class="readout">Settings</div>
+    </div>
+  </div>
+
+  <div class="section" style="top: 236px">
+    <div class="rule"><span class="tag label">Pinned <span class="dim">( 4 )</span></span></div>
+    <div class="row">
+      <div class="tile focused"><div class="art"><img src="banners/youtube.png"></div><div class="caption"><span class="idx">01</span><span class="name">YouTube</span></div></div>
+      <div class="tile"><div class="art"><img src="banners/prime.png"></div><div class="caption"><span class="idx">02</span><span class="name">Prime Video</span></div></div>
+      <div class="tile"><div class="art"><img src="banners/hotstar.png"></div><div class="caption"><span class="idx">03</span><span class="name">JioHotstar</span></div></div>
+      <div class="tile"><div class="art"><img src="banners/zee5.png"></div><div class="caption"><span class="idx">04</span><span class="name">ZEE5</span></div></div>
+    </div>
+  </div>
+
+  <div class="section" style="top: 486px">
+    <div class="rule"><span class="tag label">All apps <span class="dim">( 4 )</span></span></div>
+    <div class="row">
+      <div class="tile"><div class="art"><img src="banners/gallery.png"></div><div class="caption"><span class="idx">05</span><span class="name">Gallery</span></div></div>
+      <div class="tile"><div class="art"><img src="banners/livetv.png"></div><div class="caption"><span class="idx">06</span><span class="name">Live TV</span></div></div>
+      <div class="tile"><div class="art"><img src="banners/media.png"></div><div class="caption"><span class="idx">07</span><span class="name">Media Player</span></div></div>
+      <div class="tile"><div class="art"><img src="banners/play.png"></div><div class="caption"><span class="idx">08</span><span class="name">Play Store</span></div></div>
+    </div>
+  </div>
+</body></html>

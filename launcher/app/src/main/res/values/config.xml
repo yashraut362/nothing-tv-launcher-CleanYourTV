@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Edit this file to change the home screen, then run ../../../../../build-install.sh -->
+<resources>
+    <!-- Grid columns (3 for the rail layout; 4 fits but the tiles get small). -->
+    <integer name="columns">3</integer>
+
+    <!-- Pinned apps come first in the grid, in this order; the rest follow alphabetically. -->
+    <string-array name="dock_apps">
+        <item>com.google.android.youtube.tv</item>
+        <item>com.amazon.amazonvideo.livingroom</item>
+        <item>in.startv.hotstar</item>
+        <item>com.graymatrix.did</item>
+    </string-array>
+
+    <!-- Packages never shown in the grid. -->
+    <string-array name="hidden_apps">
+    </string-array>
+
+    <!-- Wallpaper brightness, 0-100. The wallpaper itself is a file pushed to the TV, see README. -->
+    <integer name="wallpaper_brightness">55</integer>
+</resources>
