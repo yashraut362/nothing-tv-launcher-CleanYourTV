@@ -4,7 +4,7 @@ A home screen for Android TV in the Nothing OS design language: an index, not a 
 Built for a 1 GB Xiaomi Mi TV 4A, where it runs in about 20 MB. One Java activity, one
 RecyclerView, no network permission, no background services, no ads, no recommendations.
 
-![Home](docs/screenshots/home.jpg)
+![Home](docs/screenshots/rail-input-focused.jpg)
 
 Made after [CleanYourTV](https://cleanyour.tv/) showed how: back up, disable the bloat with
 `pm disable-user` (nothing uninstalled), install your own Home. This repo is that, plus a
@@ -31,7 +31,7 @@ A rail on the left, the apps on the right.
 
 | Network focused | Input list open | Grid focused |
 |---|---|---|
-| ![Rail](docs/screenshots/rail.jpg) | ![Inputs](docs/screenshots/inputs.jpg) | ![Grid](docs/screenshots/grid.jpg) |
+| ![Rail](docs/screenshots/rail-network-focused.jpg) | ![Inputs](docs/screenshots/input-list-open.jpg) | ![Grid](docs/screenshots/grid-focused.jpg) |
 
 The research, principles, both concepts and the design system are in
 [design/proposal.md](design/proposal.md), with the HTML mockups in [design/mockups](design/mockups).
