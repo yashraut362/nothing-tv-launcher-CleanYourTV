@@ -4,13 +4,13 @@ A home screen and screensaver for Android TV in the Nothing OS design language.
 Built for a 1 GB Xiaomi Mi TV 4A, where it runs in about 24 MB: plain Java, no ads, no
 recommendations, no background services.
 
-### Home screen
-
-![Home screen](docs/screenshots/home-circles.jpg)
-
 ### Screensaver
 
 ![Screensaver](docs/screenshots/screensaver.jpg)
+
+### Home screen
+
+![Home screen](docs/screenshots/home-circles.jpg)
 
 Made after [CleanYourTV](https://cleanyour.tv/): back up, disable the bloat with
 `pm disable-user` (nothing uninstalled), install your own Home.
