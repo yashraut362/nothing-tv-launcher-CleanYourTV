@@ -5,7 +5,6 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ground"
     android:clipChildren="false"
     android:descendantFocusability="blocksDescendants">
 
@@ -39,10 +38,13 @@
             android:orientation="vertical"
             android:paddingEnd="@dimen/rail_padding">
 
+            <!-- Clock, weekday and date are centred in the column; the readouts below stay left. -->
             <TextView
                 android:id="@+id/clock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
                 android:fontFamily="@font/doto_bold"
                 android:includeFontPadding="false"
                 android:letterSpacing="0.02"
@@ -53,12 +55,14 @@
             <TextView
                 android:id="@+id/date_day"
                 style="@style/Label"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="-6dp"
                 android:textColor="@color/accent" />
 
             <TextView
                 android:id="@+id/date"
                 style="@style/Label"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="2dp"
                 android:textColor="@color/text_3" />
 

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A circular app tile: surface plus a hairline, the app's icon inside. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
+    <solid android:color="@color/surface" />
+    <stroke android:width="@dimen/hairline" android:color="@color/hairline" />
+</shape>

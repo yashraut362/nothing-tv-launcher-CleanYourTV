@@ -8,7 +8,6 @@
     <dimen name="hairline">1dp</dimen>           <!-- 1.33 px: the thinnest line the panel keeps -->
 
     <dimen name="tile_radius">4.5dp</dimen>      <!-- 6 px -->
-    <dimen name="panel_radius">6dp</dimen>       <!-- 8 px -->
     <dimen name="focus_stroke">1.5dp</dimen>     <!-- 2 px -->
     <dimen name="focus_offset">4.5dp</dimen>     <!-- 6 px outside the art -->
     <dimen name="focus_radius">9dp</dimen>       <!-- 12 px -->
@@ -17,23 +16,38 @@
     <dimen name="text_name">18sp</dimen>         <!-- 24 px, Geist Medium -->
     <dimen name="text_label">15sp</dimen>        <!-- 20 px, Geist Mono: the floor for anything read -->
 
-    <dimen name="readout_height">33dp</dimen>    <!-- 44 px -->
-    <dimen name="readout_padding">18dp</dimen>   <!-- 24 px -->
-    <dimen name="section_gap">16dp</dimen>       <!-- 21 px, rule to tiles -->
     <dimen name="caption_top">9dp</dimen>        <!-- 12 px -->
     <dimen name="caption_height">22dp</dimen>    <!-- 30 px -->
     <dimen name="row_gap">25dp</dimen>           <!-- 34 px, row to row -->
-    <dimen name="panel_width">225dp</dimen>      <!-- 300 px -->
-    <dimen name="panel_row">36dp</dimen>         <!-- 48 px -->
-    <dimen name="panel_padding">15dp</dimen>     <!-- 20 px -->
     <dimen name="dot">7.5dp</dimen>              <!-- 10 px -->
     <!-- Concept B rail -->
     <dimen name="rail_width">210dp</dimen>       <!-- 280 px incl. its hairline -->
-    <dimen name="rail_padding">18dp</dimen>      <!-- 24 px between rail text and the hairline -->
-    <dimen name="rail_gap">36dp</dimen>          <!-- 48 px between the hairline and the first tile -->
-    <dimen name="apps_left">294dp</dimen>        <!-- safe_x + rail_width + rail_gap -->
+    <dimen name="rail_padding">48dp</dimen>      <!-- 36dp gap + rail_item_pad: a focused readout ends 48 px
+                                                      before the hairline, as it starts 48 px from the screen edge -->
+    <dimen name="apps_left">294dp</dimen>        <!-- safe_x + rail_width + a 36dp gap -->
     <dimen name="rail_item_pad">12dp</dimen>     <!-- 16 px -->
     <dimen name="text_key">14sp</dimen>          <!-- 19 px, the floor -->
     <dimen name="clock_line">84dp</dimen>        <!-- 112 px per clock line -->
     <dimen name="option_row">33dp</dimen>        <!-- 44 px -->
+    <fraction name="circle_fill">74%</fraction>  <!-- circle diameter as a share of the column width -->
+    <dimen name="dream_clock">150sp</dimen>      <!-- 200 px Doto in the screensaver: dots of ~13 px -->
+    <dimen name="dream_date">18sp</dimen>        <!-- 24 px mono under it -->
+    <dimen name="dream_clock_line">140dp</dimen> <!-- the rail's 84/90 line ratio at 150sp -->
+    <dimen name="dream_date_top">6dp</dimen>
+    <dimen name="dream_date_gap">15dp</dimen>
+    <dimen name="dream_section_gap">22dp</dimen>  <!-- 29 px above the input line -->
+    <dimen name="dream_dots_top">30dp</dimen>     <!-- 40 px between the date and the day dots -->
+    <dimen name="dream_dots_pad">2dp</dimen>      <!-- room so no dot touches the row's edge -->
+    <dimen name="dream_hour_dot">8dp</dimen>      <!-- 11 px per hour: round, not a flattened square -->
+    <dimen name="dream_hour_gap">6dp</dimen>      <!-- 8 px: 24 hours span about 450 px -->
+    <dimen name="dream_value_gap">9dp</dimen>
+    <dimen name="dream_value_max">330dp</dimen>   <!-- a long input name ends with an ellipsis -->
+    <dimen name="dream_temp">75sp</dimen>        <!-- 100 px Doto beside a 96 px weather icon -->
+    <dimen name="dream_now_icon">72dp</dimen>    <!-- 96 px: the current sky -->
+    <dimen name="dream_week_icon">24dp</dimen>   <!-- 32 px: a day's sky in the week -->
+    <dimen name="dream_week_row">30dp</dimen>    <!-- 40 px per day -->
+    <dimen name="dream_week_day">78dp</dimen>    <!-- the day name's column: fits TODAY -->
+    <dimen name="dream_week_temp">48dp</dimen>   <!-- each temperature column, right-aligned -->
+    <dimen name="dream_rule_height">330dp</dimen> <!-- the hairline between the halves -->
+    <dimen name="dream_weather_gap">15dp</dimen>
 </resources>

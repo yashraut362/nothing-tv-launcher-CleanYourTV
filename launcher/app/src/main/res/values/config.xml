@@ -16,6 +16,21 @@
     <string-array name="hidden_apps">
     </string-array>
 
+    <!-- Tile shape: "circle" (each app's icon in a circle, names under all of them)
+         or "banner" (the apps' own 16:9 banners, the name only under the focused one). -->
+    <string name="tile_shape" translatable="false">circle</string>
+
+    <!-- Columns for circles; "columns" above is used for banners. -->
+    <integer name="circle_columns">4</integer>
+
+    <!-- Screensaver weather (Open-Meteo). Leave the coordinates empty to use the city of the TV's
+         internet address, looked up once a week; set them (and a name) to pin a place. -->
+    <string name="weather_latitude" translatable="false"></string>
+    <string name="weather_longitude" translatable="false"></string>
+    <string name="weather_place" translatable="false"></string>
+    <!-- "celsius" or "fahrenheit" -->
+    <string name="weather_unit" translatable="false">celsius</string>
+
     <!-- Wallpaper brightness, 0-100. The wallpaper itself is a file pushed to the TV, see README. -->
     <integer name="wallpaper_brightness">55</integer>
 </resources>

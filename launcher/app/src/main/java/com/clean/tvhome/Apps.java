@@ -16,14 +16,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/** Loads the TV apps (LEANBACK_LAUNCHER activities) with their banners. */
+/** Loads the TV apps (LEANBACK_LAUNCHER activities) with their banners and line glyphs. */
 final class Apps {
 
     static final class Entry {
         String pkg;
         ComponentName component;
         String label;
-        Drawable banner; // null when the app ships no banner
+        Drawable banner;          // null when the app ships no banner
+        LineIcons.Glyph glyph;    // null when neither Lawnicons nor the app's initial gives one
     }
 
     private Apps() {}
@@ -50,6 +51,7 @@ final class Apps {
         }
         List<Entry> apps = new ArrayList<>(byPackage.values());
         apps.sort((a, b) -> a.label.compareToIgnoreCase(b.label));
+        LineIcons.attach(context, apps);
         return apps;
     }
 }

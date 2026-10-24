@@ -7,9 +7,8 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.animation.PathInterpolator;
 
-/** One hairline rounded rectangle that moves from tile to tile. No fill, no glow. */
+/** One hairline rounded rectangle that moves from banner to banner. No fill, no glow. */
 public class FocusOutline extends View {
 
     private final RectF current = new RectF();
@@ -41,7 +40,7 @@ public class FocusOutline extends View {
         to.set(target);
         animator = ValueAnimator.ofFloat(0f, 1f);
         animator.setDuration(Motion.FOCUS_MS);
-        animator.setInterpolator(new PathInterpolator(0.2f, 0f, 0f, 1f));
+        animator.setInterpolator(Motion.standard());
         animator.addUpdateListener(a -> {
             float t = (float) a.getAnimatedValue();
             current.set(lerp(from.left, to.left, t), lerp(from.top, to.top, t),

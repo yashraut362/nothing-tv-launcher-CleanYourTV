@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!-- This app is the Home screen itself; a LEANBACK_LAUNCHER entry would list it among its own apps. -->
+    <issue id="MissingLeanbackLauncher" severity="ignore" />
+</lint>

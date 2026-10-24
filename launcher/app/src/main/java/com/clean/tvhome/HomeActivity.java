@@ -1,6 +1,7 @@
 package com.clean.tvhome;
 
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.RectF;
+import android.graphics.drawable.Drawable;
 import android.media.tv.TvContract;
 import android.media.tv.TvInputInfo;
 import android.media.tv.TvInputManager;
@@ -59,7 +61,7 @@ public class HomeActivity extends Activity {
     private FrameLayout content;
     private FocusOutline highlight;
     private TextView clock, dateDay, date, wifiLabel;
-    private View inputsDot, ruleNetwork, ruleSettings;
+    private View ruleNetwork, ruleSettings;
     private LinearLayout inputsMenu;
     private RecyclerView grid;
     private View[] railItems, railDots;
@@ -74,11 +76,15 @@ public class HomeActivity extends Activity {
     private Zone zone = Zone.GRID;
     private int railIdx, gridIdx, menuIdx;
     private int columns, tileW, tileH, gap;
+    private boolean circles;
     private View focusedCard;
     private View pressedCard;
     private ObjectAnimator scrollAnim;
     /** True from onStop until the next onResume: a new intent in between is a return from an app. */
     private boolean wasStopped;
+    // Set when Home opens something. Some apps (Play Store) don't cover Home fully, so Home is only
+    // paused, never stopped, and wasStopped alone would read their Home press as Home-on-Home.
+    private boolean openedSomething;
     private TvInputManager tvInputs;
 
     private static final class InputItem {
@@ -107,7 +113,6 @@ public class HomeActivity extends Activity {
         dateDay = findViewById(R.id.date_day);
         date = findViewById(R.id.date);
         wifiLabel = findViewById(R.id.readout_wifi_value);
-        inputsDot = findViewById(R.id.inputs_dot);
         ruleNetwork = findViewById(R.id.rule_network);
         ruleSettings = findViewById(R.id.rule_settings);
         inputsMenu = findViewById(R.id.inputs_menu);
@@ -115,14 +120,15 @@ public class HomeActivity extends Activity {
         railItems = new View[] {
                 findViewById(R.id.readout_inputs), findViewById(R.id.readout_wifi), findViewById(R.id.readout_settings)
         };
-        railDots = new View[] {inputsDot, findViewById(R.id.wifi_dot), findViewById(R.id.settings_dot)};
+        railDots = new View[] {findViewById(R.id.inputs_dot), findViewById(R.id.wifi_dot), findViewById(R.id.settings_dot)};
         railTexts = new TextView[][] {
                 {findViewById(R.id.readout_inputs_label), findViewById(R.id.readout_inputs_value)},
                 {findViewById(R.id.readout_wifi_label), wifiLabel},
                 {findViewById(R.id.readout_settings_label), findViewById(R.id.readout_settings_value)}
         };
 
-        columns = Math.max(2, Math.min(6, getResources().getInteger(R.integer.columns)));
+        circles = "circle".equals(getString(R.string.tile_shape));
+        columns = Math.max(2, Math.min(6, getResources().getInteger(circles ? R.integer.circle_columns : R.integer.columns)));
         sizeTiles();
 
         grid.setLayoutManager(new GridLayoutManager(this, columns));
@@ -160,6 +166,7 @@ public class HomeActivity extends Activity {
         updateInputsDot();
         releasePress();
         wasStopped = false;
+        openedSomething = false;
     }
 
     @Override
@@ -186,11 +193,11 @@ public class HomeActivity extends Activity {
     }
 
     /** Home pressed while Home is already showing: back to the first app.
-     *  Returning from an app (onStop happened in between) keeps the tile you left. */
+     *  Returning from an app (Home was stopped, or Home opened it) keeps the tile you left. */
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if (!wasStopped) {
+        if (!wasStopped && !openedSomething) {
             closeMenu(false);
             goToFirst();
         }
@@ -203,7 +210,8 @@ public class HomeActivity extends Activity {
         gap = Math.round(getResources().getDimension(columns >= 5 ? R.dimen.gutter_dense : R.dimen.gutter));
         int inner = screenW - dim(R.dimen.apps_left) - dim(R.dimen.safe_x);
         tileW = (inner - (columns - 1) * gap) / columns;
-        tileH = tileW * 9 / 16;
+        // tileH is the art's height: a 16:9 banner, or a circle a little narrower than its column.
+        tileH = circles ? Math.round(tileW * getResources().getFraction(R.fraction.circle_fill, 1, 1)) : tileW * 9 / 16;
     }
 
     private View makeTile(ViewGroup parent) {
@@ -212,9 +220,12 @@ public class HomeActivity extends Activity {
         View card = tile.findViewById(R.id.card);
         card.getLayoutParams().height = tileH;
         card.setClipToOutline(true);
-        // The rail concept shows names only, no index numerals.
-        tile.findViewById(R.id.index).setVisibility(View.GONE);
-        ((ViewGroup.MarginLayoutParams) tile.findViewById(R.id.label).getLayoutParams()).leftMargin = 0;
+        if (circles) {
+            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) card.getLayoutParams();
+            lp.width = tileH;
+            lp.gravity = Gravity.CENTER_HORIZONTAL;
+            ((TextView) tile.findViewById(R.id.label)).setGravity(Gravity.CENTER);
+        }
         return tile;
     }
 
@@ -223,7 +234,9 @@ public class HomeActivity extends Activity {
         TextView fallback = tile.findViewById(R.id.fallback_label);
         View card = tile.findViewById(R.id.card);
         ((TextView) tile.findViewById(R.id.label)).setText(app.label);
-        if (app.banner != null) {
+        if (circles) {
+            bindCircle(card, banner, fallback, app);
+        } else if (app.banner != null) {
             banner.setImageDrawable(app.banner);
             banner.setVisibility(View.VISIBLE);
             fallback.setVisibility(View.GONE);
@@ -236,6 +249,40 @@ public class HomeActivity extends Activity {
             card.setBackgroundResource(R.drawable.tile_noart_bg);
         }
         setTileFocused(tile, false, false);
+    }
+
+    /**
+     * A circle holding the app's line glyph (see LineIcons), the same weight and colour for every app.
+     * An app with no glyph and no Latin initial shows its name in mono caps instead.
+     */
+    private void bindCircle(View card, ImageView art, TextView fallback, Apps.Entry app) {
+        card.setBackgroundResource(R.drawable.circle_bg);
+        if (app.glyph == null) {
+            art.setImageDrawable(null);
+            art.setVisibility(View.GONE);
+            fallback.setText(app.label);
+            fallback.setVisibility(View.VISIBLE);
+            return;
+        }
+        int inset = Math.round(tileH * (1f - GLYPH_SHARE) / 2f);
+        art.setPadding(inset, inset, inset, inset);
+        art.setScaleType(ImageView.ScaleType.FIT_XY);
+        art.setImageDrawable(new LineIcons.GlyphDrawable(app.glyph, getColor(R.color.text)));
+        art.setVisibility(View.VISIBLE);
+        fallback.setVisibility(View.GONE);
+    }
+
+    /** The glyph's 192 grid as a share of the circle; Lawnicons draws inside about 150 of it. */
+    private static final float GLYPH_SHARE = 0.62f;
+
+    /** Focus inverts a circle, as it does a rail readout: white disc, dark line. */
+    private void styleCircle(View tile, boolean focused) {
+        View card = tile.findViewById(R.id.card);
+        card.setBackgroundResource(focused ? R.drawable.circle_focus_bg : R.drawable.circle_bg);
+        int ink = getColor(focused ? R.color.ground : R.color.text);
+        Drawable d = ((ImageView) tile.findViewById(R.id.banner)).getDrawable();
+        if (d instanceof LineIcons.GlyphDrawable) ((LineIcons.GlyphDrawable) d).setColor(ink);
+        ((TextView) tile.findViewById(R.id.fallback_label)).setTextColor(ink);
     }
 
     private void loadWallpaper() {
@@ -333,6 +380,7 @@ public class HomeActivity extends Activity {
     private void start(Intent i) {
         try {
             startActivity(i);
+            openedSomething = true;
         } catch (Exception e) {
             Toast.makeText(this, "Can't open that here", Toast.LENGTH_SHORT).show();
         }
@@ -377,6 +425,7 @@ public class HomeActivity extends Activity {
     }
 
     @SuppressWarnings("deprecation")
+    @SuppressLint("MissingPermission") // allowed on Android 9 without location; guarded for newer
     private String wifiName(ConnectivityManager cm) {
         WifiManager wm = getApplicationContext().getSystemService(WifiManager.class);
         WifiInfo info = wm == null ? null : wm.getConnectionInfo();
@@ -384,11 +433,16 @@ public class HomeActivity extends Activity {
         if (unknown(ssid) && info != null && info.getNetworkId() >= 0) {
             // With location off, Android 9 hides the SSID from WifiInfo but still lists the
             // saved networks; the connected one is found by its network id.
-            List<WifiConfiguration> saved = wm.getConfiguredNetworks();
-            if (saved != null) {
-                for (WifiConfiguration c : saved) {
-                    if (c.networkId == info.getNetworkId()) { ssid = c.SSID; break; }
+            // Android 10 and later need fine location for this list; there it reads "Wi-Fi".
+            try {
+                List<WifiConfiguration> saved = wm.getConfiguredNetworks();
+                if (saved != null) {
+                    for (WifiConfiguration c : saved) {
+                        if (c.networkId == info.getNetworkId()) { ssid = c.SSID; break; }
+                    }
                 }
+            } catch (SecurityException ignored) {
+                // no permission: fall through to the generic label
             }
         }
         if (unknown(ssid)) {
@@ -408,30 +462,10 @@ public class HomeActivity extends Activity {
 
     /** The Input readout shows the connected source and a red dot when a device on it is on. */
     private void updateInputsDot() {
-        InputItem connected = null;
-        if (tvInputs != null) {
-            for (TvInputInfo info : tvInputs.getTvInputList()) {
-                if (isSource(info) && isConnected(info.getId())) {
-                    connected = new InputItem(label(info), null, true);
-                    break;
-                }
-            }
-        }
+        String connected = TvSources.connectedLabel(this, tvInputs);
         inputConnected = connected != null;
-        railTexts[RAIL_INPUTS][1].setText(connected != null ? connected.label : getString(R.string.inputs));
+        railTexts[RAIL_INPUTS][1].setText(connected != null ? connected : getString(R.string.inputs));
         styleRailItem(RAIL_INPUTS, zone == Zone.RAIL && railIdx == RAIL_INPUTS);
-    }
-
-    private boolean isConnected(String inputId) {
-        try {
-            return tvInputs.getInputState(inputId) == TvInputManager.INPUT_STATE_CONNECTED;
-        } catch (IllegalArgumentException e) {
-            return false;
-        }
-    }
-
-    private static boolean isSource(TvInputInfo info) {
-        return info.isPassthroughInput() && info.getParentId() == null;
     }
 
     private final BroadcastReceiver clockReceiver = new BroadcastReceiver() {
@@ -486,13 +520,13 @@ public class HomeActivity extends Activity {
             list.sort((a, b) -> {
                 int ta = a.getType() == TvInputInfo.TYPE_HDMI ? 0 : 1;
                 int tb = b.getType() == TvInputInfo.TYPE_HDMI ? 0 : 1;
-                return ta != tb ? ta - tb : label(a).compareToIgnoreCase(label(b));
+                return ta != tb ? ta - tb : TvSources.label(this, a).compareToIgnoreCase(TvSources.label(this, b));
             });
             for (TvInputInfo info : list) {
-                if (!isSource(info)) continue;
+                if (!TvSources.isSource(info)) continue;
                 Intent view = new Intent(Intent.ACTION_VIEW,
                         TvContract.buildChannelUriForPassthroughInput(info.getId()));
-                inputs.add(new InputItem(label(info), view, isConnected(info.getId())));
+                inputs.add(new InputItem(TvSources.label(this, info), view, TvSources.isConnected(tvInputs, info.getId())));
             }
         }
         Intent live = getPackageManager().getLeanbackLaunchIntentForPackage("com.android.tv");
@@ -533,13 +567,6 @@ public class HomeActivity extends Activity {
         zone = Zone.MENU;
         menuIdx = 0;
         inputsMenu.post(() -> refreshFocus(true));
-    }
-
-    private String label(TvInputInfo info) {
-        CharSequence l = info.loadCustomLabel(this);
-        if (l == null || l.length() == 0) l = info.loadLabel(this);
-        // Firmware labels read "HDMI1"; space them like the TV's own source menu.
-        return l == null ? info.getId() : l.toString().replaceAll("^(HDMI|AV)(\\d)", "$1 $2");
     }
 
     private void closeMenu(boolean animate) {
@@ -745,8 +772,9 @@ public class HomeActivity extends Activity {
         if (focusedCard != null && focusedCard != card) {
             setTileFocused((View) focusedCard.getParent(), false, animate);
         }
-        if (card != null) {
-            setTileFocused((View) card.getParent(), true, animate);
+        if (card != null) setTileFocused((View) card.getParent(), true, animate);
+        // Banners get the outline; a circle needs none, since its inversion already marks focus.
+        if (card != null && !circles) {
             RectF r = boundsInContent(card);
             float grow = (Motion.FOCUS_SCALE - 1f) / 2f;
             r.inset(-(r.width() * grow + dim(R.dimen.focus_offset)), -(r.height() * grow + dim(R.dimen.focus_offset)));
@@ -767,20 +795,26 @@ public class HomeActivity extends Activity {
     }
 
     private void setTileFocused(View tile, boolean focused, boolean animate) {
+        if (circles) styleCircle(tile, focused);
         View card = tile.findViewById(R.id.card);
         View label = tile.findViewById(R.id.label);
         float scale = focused ? Motion.FOCUS_SCALE : 1f;
         if (animate) {
             card.animate().scaleX(scale).scaleY(scale).setDuration(Motion.FOCUS_MS)
                     .setInterpolator(Motion.standard()).start();
-            label.animate().alpha(focused ? 1f : 0f).setDuration(Motion.FOCUS_MS).start();
+            label.animate().alpha(focused ? 1f : restingNameAlpha()).setDuration(Motion.FOCUS_MS).start();
         } else {
             card.animate().cancel();
             label.animate().cancel();
             card.setScaleX(scale);
             card.setScaleY(scale);
-            label.setAlpha(focused ? 1f : 0f);
+            label.setAlpha(focused ? 1f : restingNameAlpha());
         }
+    }
+
+    /** Circles carry no wordmark, so every name shows, dimmed until focused; banners name only the focused app. */
+    private float restingNameAlpha() {
+        return circles ? 0.5f : 0f;
     }
 
     /** The focused readout inverts and carries the red dot, like a row of the input list. */

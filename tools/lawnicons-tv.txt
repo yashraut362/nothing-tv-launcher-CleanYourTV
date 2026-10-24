@@ -1,0 +1,39 @@
+# TV additions to Lawnicons, read by tools/lawnicons.py. Ours, MIT like the launcher.
+#
+# a:<package>   <glyph>   TV builds whose package Lawnicons doesn't list; checked before everything else
+# k:<word>      <glyph>   a word in an app's name, for system apps that differ on every TV brand;
+#                         checked only when nothing else matched
+# g:<glyph>     <viewBox> <stroke> ...   a glyph of our own, in the icons.txt format, 192 grid, 12 wide
+
+# Streaming apps whose Android TV package differs from the phone one
+a:com.amazon.amazonvideo.livingroom	amazon_prime_video
+a:com.google.android.apps.tv.launcherx	google_tv
+a:com.google.android.tvlauncher	google_tv
+a:com.rakuten.tv	rakuten
+a:de.zdf.android.mediathek	zdf
+a:com.google.android.youtube.tvmusic	generic_player
+a:com.google.android.youtube.tvkids	youtube_kids
+a:com.google.android.youtube.tvunplugged	youtube_tv
+
+# TV system apps
+a:com.android.tv	tv_own
+a:com.droidlogic.tvsource	tv_own
+a:com.android.tv.settings	generic_settings
+a:com.mitv.gallery	generic_gallery
+a:com.xiaomi.mitv.mediaexplorer	generic_player
+
+# Any brand: by a word in the app's name
+k:livetv	tv_own
+k:tv	tv_own
+k:gallery	generic_gallery
+k:photos	generic_gallery
+k:settings	generic_settings
+k:files	generic_files
+k:filemanager	generic_files
+k:player	generic_player
+k:media	generic_player
+k:music	generic_player
+k:browser	generic_browser
+
+# A television: screen and antenna, in Lawnicons' style
+g:tv_own	0 0 192 192	12 r r M42 62h108a20 20 0 0 1 20 20v62a20 20 0 0 1-20 20H42a20 20 0 0 1-20-20V82a20 20 0 0 1 20-20z	12 r r M70 30l26 30 26-30

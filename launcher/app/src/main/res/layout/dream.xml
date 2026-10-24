@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The screensaver, fixed in place: the time on the left half, the weather and the week on the
+     right, a hairline between them. Without a weather reading the right half and the hairline
+     hide and the time centres on the screen. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dream_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/safe_x"
+    android:paddingTop="@dimen/safe_y"
+    android:paddingEnd="@dimen/safe_x"
+    android:paddingBottom="@dimen/safe_y">
+
+    <!-- Left: clock, date, the day as 24 dots, the input line. -->
+    <LinearLayout
+        android:id="@+id/dream_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/dream_clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/doto_bold"
+            android:gravity="center_horizontal"
+            android:includeFontPadding="false"
+            android:lineHeight="@dimen/dream_clock_line"
+            android:letterSpacing="0.02"
+            android:textColor="@color/text"
+            android:textSize="@dimen/dream_clock" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dream_date_top"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/dream_day"
+                style="@style/Label"
+                android:textColor="@color/accent"
+                android:textSize="@dimen/dream_date" />
+
+            <TextView
+                android:id="@+id/dream_date"
+                style="@style/Label"
+                android:layout_marginStart="@dimen/dream_date_gap"
+                android:textColor="@color/text_3"
+                android:textSize="@dimen/dream_date" />
+        </LinearLayout>
+
+        <!-- One dot per hour: past ones lit, the current one red and pulsing each second. -->
+        <LinearLayout
+            android:id="@+id/dream_dots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dream_dots_top"
+            android:paddingTop="@dimen/dream_dots_pad"
+            android:paddingBottom="@dimen/dream_dots_pad"
+            android:orientation="horizontal" />
+
+        <!-- Shown only while a device on an input is switched on. -->
+        <LinearLayout
+            android:id="@+id/dream_input"
+            style="@style/DreamLine"
+            android:layout_marginTop="@dimen/dream_section_gap">
+
+            <TextView
+                style="@style/RailKey"
+                android:text="@string/input" />
+
+            <TextView
+                android:id="@+id/dream_input_value"
+                style="@style/DreamValue" />
+
+            <View
+                android:layout_width="@dimen/dot"
+                android:layout_height="@dimen/dot"
+                android:layout_marginStart="@dimen/dream_value_gap"
+                android:background="@drawable/dot" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/dream_rule"
+        android:layout_width="@dimen/hairline"
+        android:layout_height="@dimen/dream_rule_height"
+        android:background="@color/hairline"
+        android:visibility="gone" />
+
+    <!-- Right: now, then the week. -->
+    <LinearLayout
+        android:id="@+id/dream_weather"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/dream_now_icon"
+                android:layout_width="@dimen/dream_now_icon"
+                android:layout_height="@dimen/dream_now_icon" />
+
+            <TextView
+                android:id="@+id/dream_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dream_weather_gap"
+                android:fontFamily="@font/doto_bold"
+                android:includeFontPadding="false"
+                android:textColor="@color/text"
+                android:textSize="@dimen/dream_temp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/dream_place"
+            style="@style/Label"
+            android:layout_marginTop="@dimen/dream_date_top"
+            android:textColor="@color/text_2"
+            android:textSize="@dimen/dream_date" />
+
+        <TextView
+            android:id="@+id/dream_range"
+            style="@style/Label"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/text_3"
+            android:textSize="@dimen/dream_date" />
+
+        <!-- The week, one row a day; rows are added in code. -->
+        <LinearLayout
+            android:id="@+id/dream_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dream_dots_top"
+            android:orientation="vertical" />
+    </LinearLayout>
+</LinearLayout>

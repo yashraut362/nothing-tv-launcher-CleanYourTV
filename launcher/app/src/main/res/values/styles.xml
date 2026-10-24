@@ -19,7 +19,7 @@
     <style name="Label">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:fontFamily">@font/geistmono_medium</item>
+        <item name="android:fontFamily">@font/geistmono_light</item>
         <item name="android:textSize">@dimen/text_label</item>
         <item name="android:letterSpacing">0.08</item>
         <item name="android:textAllCaps">true</item>
@@ -73,7 +73,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">4dp</item>
-        <item name="android:fontFamily">@font/geist_medium</item>
+        <item name="android:fontFamily">@font/geist_light</item>
         <item name="android:textSize">@dimen/text_name</item>
         <item name="android:textColor">@color/text</item>
         <item name="android:singleLine">true</item>
@@ -84,5 +84,27 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/hairline</item>
         <item name="android:background">@color/hairline</item>
+    </style>
+
+    <!-- A screensaver status line: a mono key, then a value; hidden until there is something to say. -->
+    <style name="DreamLine">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="DreamValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/dream_value_gap</item>
+        <item name="android:maxWidth">@dimen/dream_value_max</item>
+        <item name="android:fontFamily">@font/geist_light</item>
+        <item name="android:textSize">@dimen/text_name</item>
+        <item name="android:textColor">@color/text_2</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
     </style>
 </resources>

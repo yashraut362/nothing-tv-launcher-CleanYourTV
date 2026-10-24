@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Everything stays inside the TV-safe RGB 16-235 range: no bloom, no black crush. -->
+<!-- Ground and surface are Nothing's own dark-mode pair from nothing.tech's design tokens
+     (greyscale-dm-dark 4,4,4 and greyscale-dm-light 24,24,24). This TV shows the launcher at full
+     range, so RGB 16 "video black" read as grey; Nothing's near-black does not. Text stays at 235. -->
 <resources>
-    <color name="ground">#101010</color>          <!-- RGB 16: video black -->
-    <color name="surface">#1A1A1A</color>         <!-- banner-less tiles, panels -->
+    <color name="ground">#040404</color>          <!-- Nothing black (greyscale-dm-dark) -->
+    <color name="surface">#181818</color>         <!-- Nothing dark-mode surface (greyscale-dm-light) -->
     <color name="hairline">#333333</color>        <!-- 1dp rules and outlines -->
     <color name="hairline_strong">#5A5A5A</color> <!-- panel border -->
     <color name="text">#EBEBEB</color>            <!-- RGB 235: video white -->
