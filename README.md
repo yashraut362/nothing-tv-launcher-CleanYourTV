@@ -19,12 +19,12 @@ A rail on the left, the apps on the right.
   which is the same split Nothing arrived at in OS 3.0.
 - **Three readouts** under the clock, each a mono label over a value between hairlines:
   **Input** (the connected source, or the list of inputs), **Network** (the Wi-Fi name, Ethernet
-  or Offline) and **System** (Settings). The focused readout inverts to white on black and carries the red dot.
+  or Offline) and **System** (Settings). The focused readout inverts to a rounded white block and carries the red dot.
 - **The apps** as 16:9 banners in three columns, pinned apps first, the rest by name. Focus is
   a single white outline and a 1.08 scale; the name appears under the focused tile only.
 - **The input list** expands in place inside the Input readout: HDMI 1 to 3, AV and Live TV.
   The red dot marks the focused row, the focused readout, and any input whose device the TV
-  reports as on. Red is used for nothing else.
+  reports as on. The only other red is the weekday under the clock.
 - Seven colours, three fonts (Doto Bold, Geist Medium, Geist Mono Medium), 1 dp hairlines,
   4.5 dp radii, no glow, no blur, no gradients, no glass. Every colour, size and timing is a
   token in `colors.xml`, `dimens.xml` and `Motion.java`.

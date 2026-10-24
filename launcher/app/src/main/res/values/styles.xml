@@ -27,7 +27,8 @@
         <item name="android:singleLine">true</item>
     </style>
 
-    <!-- A rail readout: a small key over a value. Focus inverts the whole item. -->
+    <!-- A rail readout: a small key over a value. Focus inverts the whole item, which hangs
+         12dp past the text edge on both sides so the text keeps its inset. -->
     <style name="RailItem">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -37,6 +38,30 @@
         <item name="android:paddingStart">@dimen/rail_item_pad</item>
         <item name="android:paddingEnd">@dimen/rail_item_pad</item>
         <item name="android:layout_marginStart">-12dp</item>
+        <item name="android:layout_marginEnd">-12dp</item>
+    </style>
+
+    <!-- The label/value pair and the dot, side by side; the dot centres on the pair. -->
+    <style name="RailHead">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="RailPair">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="RailDot">
+        <item name="android:layout_width">@dimen/dot</item>
+        <item name="android:layout_height">@dimen/dot</item>
+        <item name="android:layout_marginStart">9dp</item>
+        <item name="android:background">@drawable/dot</item>
+        <item name="android:visibility">invisible</item>
     </style>
 
     <style name="RailKey" parent="Label">

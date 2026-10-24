@@ -522,7 +522,7 @@ public class HomeActivity extends Activity {
                     ViewGroup.LayoutParams.MATCH_PARENT, dim(R.dimen.option_row)));
         }
         // The list takes the other readouts' room while it is open.
-        railItems[RAIL_INPUTS].findViewById(R.id.readout_inputs_value_row).setVisibility(View.GONE);
+        railTexts[RAIL_INPUTS][1].setVisibility(View.GONE);
         for (View v : new View[] {ruleNetwork, railItems[RAIL_WIFI], ruleSettings, railItems[RAIL_SETTINGS]}) {
             v.setVisibility(View.GONE);
         }
@@ -546,7 +546,7 @@ public class HomeActivity extends Activity {
         if (inputsMenu.getVisibility() != View.VISIBLE) return;
         inputsMenu.animate().cancel();
         inputsMenu.setVisibility(View.GONE);
-        railItems[RAIL_INPUTS].findViewById(R.id.readout_inputs_value_row).setVisibility(View.VISIBLE);
+        railTexts[RAIL_INPUTS][1].setVisibility(View.VISIBLE);
         for (View v : new View[] {ruleNetwork, railItems[RAIL_WIFI], ruleSettings, railItems[RAIL_SETTINGS]}) {
             v.setVisibility(View.VISIBLE);
         }
@@ -785,10 +785,12 @@ public class HomeActivity extends Activity {
 
     /** The focused readout inverts and carries the red dot, like a row of the input list. */
     private void styleRailItem(int i, boolean focused) {
-        railItems[i].setBackgroundColor(focused ? getColor(R.color.text) : Color.TRANSPARENT);
+        if (focused) railItems[i].setBackgroundResource(R.drawable.rail_focus_bg);
+        else railItems[i].setBackgroundColor(Color.TRANSPARENT);
         railTexts[i][0].setTextColor(getColor(focused ? R.color.ground : R.color.text_3));
         railTexts[i][1].setTextColor(getColor(focused ? R.color.ground : R.color.text));
-        boolean dot = focused || (i == RAIL_INPUTS && inputConnected);
+        boolean listOpen = inputsMenu.getVisibility() == View.VISIBLE;
+        boolean dot = focused || (i == RAIL_INPUTS && inputConnected && !listOpen);
         railDots[i].setVisibility(dot ? View.VISIBLE : View.INVISIBLE);
     }
 

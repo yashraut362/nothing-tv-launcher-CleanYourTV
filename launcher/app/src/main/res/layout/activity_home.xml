@@ -16,7 +16,8 @@
         android:scaleType="centerCrop"
         android:visibility="gone" />
 
-    <!-- The rail: time on top, readouts at the bottom, a hairline on its right edge. -->
+    <!-- The rail: time on top, readouts at the bottom, a hairline on its right edge.
+         clipChildren is off all the way down so a focused readout can hang past the text edge. -->
     <LinearLayout
         android:id="@+id/rail"
         android:layout_width="@dimen/rail_width"
@@ -24,6 +25,8 @@
         android:layout_marginStart="@dimen/safe_x"
         android:layout_marginTop="@dimen/safe_y"
         android:layout_marginBottom="@dimen/safe_y"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -31,6 +34,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:clipChildren="false"
+            android:clipToPadding="false"
             android:orientation="vertical"
             android:paddingEnd="@dimen/rail_padding">
 
@@ -48,7 +53,8 @@
             <TextView
                 android:id="@+id/date_day"
                 style="@style/Label"
-                android:layout_marginTop="-6dp" />
+                android:layout_marginTop="-6dp"
+                android:textColor="@color/accent" />
 
             <TextView
                 android:id="@+id/date"
@@ -61,11 +67,14 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
-            <!-- Readouts. Each is a label over a value; the focused one inverts. -->
+            <!-- Readouts. Each is a label over a value with a dot centred on the pair;
+                 the focused one inverts and shows the dot. -->
             <LinearLayout
                 android:id="@+id/readouts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:orientation="vertical">
 
                 <View style="@style/RailRule" />
@@ -74,32 +83,24 @@
                     android:id="@+id/readout_inputs"
                     style="@style/RailItem">
 
-                    <TextView
-                        android:id="@+id/readout_inputs_label"
-                        style="@style/RailKey"
-                        android:text="@string/input" />
+                    <LinearLayout style="@style/RailHead">
 
-                    <LinearLayout
-                        android:id="@+id/readout_inputs_value_row"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        <LinearLayout style="@style/RailPair">
 
-                        <TextView
-                            android:id="@+id/readout_inputs_value"
-                            style="@style/RailValue"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:text="@string/inputs" />
+                            <TextView
+                                android:id="@+id/readout_inputs_label"
+                                style="@style/RailKey"
+                                android:text="@string/input" />
+
+                            <TextView
+                                android:id="@+id/readout_inputs_value"
+                                style="@style/RailValue"
+                                android:text="@string/inputs" />
+                        </LinearLayout>
 
                         <View
                             android:id="@+id/inputs_dot"
-                            android:layout_width="@dimen/dot"
-                            android:layout_height="@dimen/dot"
-                            android:layout_marginStart="9dp"
-                            android:background="@drawable/dot"
-                            android:visibility="invisible" />
+                            style="@style/RailDot" />
                     </LinearLayout>
 
                     <!-- The input list, expanded in place; rows added in code. -->
@@ -120,30 +121,23 @@
                     android:id="@+id/readout_wifi"
                     style="@style/RailItem">
 
-                    <TextView
-                        android:id="@+id/readout_wifi_label"
-                        style="@style/RailKey"
-                        android:text="@string/network" />
+                    <LinearLayout style="@style/RailHead">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        <LinearLayout style="@style/RailPair">
 
-                        <TextView
-                            android:id="@+id/readout_wifi_value"
-                            style="@style/RailValue"
-                            android:layout_width="0dp"
-                            android:layout_weight="1" />
+                            <TextView
+                                android:id="@+id/readout_wifi_label"
+                                style="@style/RailKey"
+                                android:text="@string/network" />
+
+                            <TextView
+                                android:id="@+id/readout_wifi_value"
+                                style="@style/RailValue" />
+                        </LinearLayout>
 
                         <View
                             android:id="@+id/wifi_dot"
-                            android:layout_width="@dimen/dot"
-                            android:layout_height="@dimen/dot"
-                            android:layout_marginStart="9dp"
-                            android:background="@drawable/dot"
-                            android:visibility="invisible" />
+                            style="@style/RailDot" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -155,31 +149,24 @@
                     android:id="@+id/readout_settings"
                     style="@style/RailItem">
 
-                    <TextView
-                        android:id="@+id/readout_settings_label"
-                        style="@style/RailKey"
-                        android:text="@string/system" />
+                    <LinearLayout style="@style/RailHead">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        <LinearLayout style="@style/RailPair">
 
-                        <TextView
-                            android:id="@+id/readout_settings_value"
-                            style="@style/RailValue"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:text="@string/settings" />
+                            <TextView
+                                android:id="@+id/readout_settings_label"
+                                style="@style/RailKey"
+                                android:text="@string/system" />
+
+                            <TextView
+                                android:id="@+id/readout_settings_value"
+                                style="@style/RailValue"
+                                android:text="@string/settings" />
+                        </LinearLayout>
 
                         <View
                             android:id="@+id/settings_dot"
-                            android:layout_width="@dimen/dot"
-                            android:layout_height="@dimen/dot"
-                            android:layout_marginStart="9dp"
-                            android:background="@drawable/dot"
-                            android:visibility="invisible" />
+                            style="@style/RailDot" />
                     </LinearLayout>
                 </LinearLayout>
 
