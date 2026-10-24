@@ -29,7 +29,7 @@ A rail on the left, the apps on the right.
   4.5 dp radii, no glow, no blur, no gradients, no glass. Every colour, size and timing is a
   token in `colors.xml`, `dimens.xml` and `Motion.java`.
 
-| Rail focused | Input list open | Grid focused |
+| Network focused | Input list open | Grid focused |
 |---|---|---|
 | ![Rail](docs/screenshots/rail.jpg) | ![Inputs](docs/screenshots/inputs.jpg) | ![Grid](docs/screenshots/grid.jpg) |
 
