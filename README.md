@@ -29,8 +29,8 @@ Made after [CleanYourTV](https://cleanyour.tv/): back up, disable the bloat with
 - **Look:** Nothing's near-black (`#040404`), one red (`#D71921`), Doto, Geist Light and Geist
   Mono Light, 1 dp hairlines. No glow, blur or gradients.
 
-| Rail focused | Input list |
-|---|---|
+| Rail focused                                       | Input list                                         |
+| -------------------------------------------------- | -------------------------------------------------- |
 | ![Rail](docs/screenshots/rail-focused-circles.jpg) | ![Inputs](docs/screenshots/input-list-circles.jpg) |
 
 The research and design behind it are in [design/proposal.md](design/proposal.md).
@@ -124,3 +124,5 @@ MIT, see [LICENSE](LICENSE). App glyphs: [Lawnicons](https://github.com/Lawnchai
 
 Nothing is a trademark of Nothing Technology Limited. This fan project is not made, endorsed or
 supported by Nothing.
+
+open for any new contribution !
